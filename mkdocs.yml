@@ -97,6 +97,7 @@ plugins:
   - drawio-exporter:
       cache_dir: .drawio-exporter
       format: svg
+      drawio_executable: ""
   - minify:
       minify_html: true
       minify_js: true
