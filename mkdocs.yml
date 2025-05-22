@@ -115,16 +115,6 @@ extra_javascript:
   - https://polyfill.io/v3/polyfill.min.js?features=es6
   - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
 
-# Configuration for Confluence Publisher
-# Uncomment and configure when ready to publish to Confluence
-extra:
- confluence:
-   url: https://dlevi93.atlassian.net
-   space_key: MKDocs
-   parent_page_id: 327683
-   username: dlevi93@outlook.com
-   password: ATATT3xFfGF03MLW8JRWKyUkrE5GgIC02ZNEPNXtrYPqYCtuyL9Tk-b-KWHpk2BJtTCGu0YRgSxfsBwPLluKz2CL5FVaWH8dIEKLZElCPHeKF6d68C0NaxLU2ekqVhCtuuIbt56zQLpkjrQC0GjbFFpqSMJOz_UVnTAmEaa3YMQAj9nI-mbLdtQ=CB666DF7  # Use API token, not your actual password
-
 # Structure of the navigation
 nav:
   - Home: index.md
