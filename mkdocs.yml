@@ -89,9 +89,11 @@ plugins:
   - mermaid2:
       version: 10.8.0
   - plantuml:
-      puml_url: http://127.0.0.1:8080
-      cache:
-        backend: disabled
+      puml_url: https://www.plantuml.com/plantuml/
+      # local Docker setup
+      # puml_url: http://127.0.0.1:8080
+      # cache:
+      #   backend: disabled
   - drawio-exporter:
       cache_dir: .drawio-exporter
       format: svg
