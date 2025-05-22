@@ -123,3 +123,63 @@ python -m mkdocs_confluence_publisher
 ## License
 
 This project is licensed under the MIT License.
+
+# Documentation Site
+
+This project uses MkDocs with the Material theme to generate beautiful, feature-rich documentation. It supports advanced Markdown, Mermaid, PlantUML, and Draw.io diagrams, and can publish directly to Confluence.
+
+## Prerequisites
+
+- Python 3.8+
+- pip
+- Docker (for PlantUML rendering)
+
+## Setup
+
+1. **Install dependencies:**
+   ```sh
+   pip install -r requirements.txt
+   ```
+
+2. **Run a local PlantUML server (required for PlantUML diagram rendering):**
+   The PlantUML plugin is configured to use a local PlantUML server at `http://127.0.0.1:8080`.
+   Start the server using Docker:
+   ```sh
+   docker run -d -p 8080:8080 plantuml/plantuml-server:jetty
+   ```
+   This is required for PlantUML diagrams to render in your documentation.
+
+3. **Serve the documentation locally:**
+   ```sh
+   mkdocs serve
+   ```
+   Open your browser to [http://127.0.0.1:8000/](http://127.0.0.1:8000/)
+
+4. **Build the documentation:**
+   ```sh
+   mkdocs build
+   ```
+
+5. **Publish to Confluence:**
+   The project uses the `confluence-publisher` plugin. Make sure your `mkdocs.yml` includes:
+   ```yaml
+   plugins:
+     # ...existing plugins...
+     - confluence-publisher:
+         space_key: "MKDocs"     # Required: Confluence space key
+         parent_page_id: 327683   # Required: ID of the parent page in Confluence
+   ```
+   Then run:
+   ```sh
+   python publish.py --publish
+   ```
+
+   Configure your Confluence credentials and settings in `.env` or `mkdocs.yml` as needed.
+
+## Features
+- Material theme with advanced navigation
+- Mermaid, PlantUML, and Draw.io diagram support
+- Confluence publishing
+- Custom admonitions, tabs, and more
+
+See the documentation for details on advanced Markdown features and diagram usage.
