@@ -1,0 +1,88 @@
+@startuml
+skinparam sequenceArrowThickness 2
+skinparam roundcorner 5
+skinparam sequenceParticipant underline
+
+title Authentication Flow
+
+actor User
+participant "Web Application" as Web
+participant "Auth Service" as Auth
+database "User Database" as DB
+participant "Email Service" as Email
+
+== Login Process ==
+
+User -> Web: Access Site
+Web -> User: Show Login Form
+
+User -> Web: Submit Credentials
+activate Web
+
+Web -> Auth: Authenticate(username, password)
+activate Auth
+
+Auth -> DB: Query User
+activate DB
+DB --> Auth: Return User Data
+deactivate DB
+
+alt Valid Credentials
+    Auth -> Auth: Generate JWT Token
+    Auth --> Web: Return Token + User Info
+    Web -> Web: Store Token in Local Storage
+    Web --> User: Redirect to Dashboard
+else Invalid Credentials
+    Auth --> Web: Auth Failed
+    Web --> User: Show Error Message
+end
+
+deactivate Auth
+deactivate Web
+
+== Password Reset ==
+
+User -> Web: Request Password Reset
+activate Web
+
+Web -> Auth: Initiate Password Reset
+activate Auth
+
+Auth -> DB: Find User Account
+DB --> Auth: User Found
+
+Auth -> Auth: Generate Reset Token
+Auth -> Email: Send Reset Email
+Email --> User: Deliver Reset Email
+
+Auth --> Web: Reset Initiated
+Web --> User: Confirmation Screen
+
+deactivate Auth
+deactivate Web
+
+== Token Validation ==
+
+User -> Web: Access Protected Resource
+activate Web
+
+Web -> Web: Check Local Token
+
+Web -> Auth: Validate Token
+activate Auth
+
+Auth -> Auth: Verify Signature & Expiry
+
+alt Valid Token
+    Auth --> Web: Token Valid
+    Web --> User: Display Protected Content
+else Invalid or Expired Token
+    Auth --> Web: Token Invalid
+    Web -> Web: Clear Local Token
+    Web --> User: Redirect to Login
+end
+
+deactivate Auth
+deactivate Web
+
+@enduml

@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+  mkdocs:
+    build: .
+    ports:
+      - "8080:80"
+    volumes:
+      - ./docs:/app/docs
+    restart: unless-stopped

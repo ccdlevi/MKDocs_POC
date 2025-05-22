@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="app.diagrams.net" modified="2023-09-11T10:20:00.000Z" agent="5.0 (Windows)" version="14.7.6" etag="example_etag">
+  <diagram id="sample-diagram" name="Sample Architecture">
+    <mxGraphModel dx="1102" dy="825" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="2" value="Web Browser" style="shape=image;verticalLabelPosition=bottom;labelBackgroundColor=#ffffff;verticalAlign=top;aspect=fixed;imageAspect=0;image=data:image/svg+xml,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSI0OCIgaGVpZ2h0PSI0OCIgdmlld0JveD0iMCAwIDQ4IDQ4Ij48cGF0aCBkPSJNMjQgNEMxMi45NSA0IDQgMTIuOTUgNCAyNHM4Ljk1IDIwIDIwIDIwIDIwLTguOTUgMjAtMjBTMzUuMDUgNCAyNCA0em04LjQgNDRIMTUuNnYtMy45aDEwLjh2NC4xdi0uMnptMi0uMnYtNi45aDE0LjRjLTIuMSAzLjctNS43IDYuNS05LjkgN3YuMWgtNC41di0uMnptLTI0LjMtNi45aDE0LjR2Ni45Yy00LjMtLjUtNy45LTMuMy05LjktN3YtLjFsLjEuMWgtMi4zdi0uMmwtMi4zLjJ6TTQuMSAyMGgxNy41djE0LjRINi4xYy0xLjMtMi45LTItNi4yLTItOS41di01aDBsMC01em0wLTQuOWMxLjktNC40IDcuNS03LjYgMTMuNS03LjZoMi44djEyLjZINC4xdi01ek00NCA0MEgyNy45VjI1LjVINDRWNDB6TTQ0IDIwSDI3LjlWNy41aDRjNiAwIDEwLjcgMy4yIDEyLjggNy42di41LS4xYy0yLjEtNC40LjEtLjEuMSA0LjVoLS44em0tLjEgNWMwIDMuMy0uNyA2LjUtMiA5LjVIMjcuOFYyNS41bDE2LjEtLjV6Ii8+PC9zdmc+" vertex="1" parent="1">
+          <mxGeometry x="120" y="120" width="48" height="48" as="geometry" />
+        </mxCell>
+        <mxCell id="3" value="MkDocs Server" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="1">
+          <mxGeometry x="320" y="114" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="4" value="Confluence Server" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="1">
+          <mxGeometry x="320" y="280" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="5" value="" style="endArrow=classic;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="2" target="3">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="400" y="410" as="sourcePoint" />
+            <mxPoint x="450" y="360" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="6" value="" style="endArrow=classic;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="3" target="4">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="400" y="410" as="sourcePoint" />
+            <mxPoint x="450" y="360" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="7" value="HTTP Request" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="210" y="114" width="80" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="8" value="Publish" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="380" y="210" width="40" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="9" value="Markdown Files" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="520" y="104" width="60" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="10" value="" style="endArrow=classic;startArrow=classic;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="3" target="9">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="400" y="410" as="sourcePoint" />
+            <mxPoint x="450" y="360" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

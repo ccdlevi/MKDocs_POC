@@ -1,0 +1,43 @@
+@startuml
+title System Architecture
+
+package "Frontend" {
+  [Web Interface] as UI
+  [Mobile App] as Mobile
+}
+
+package "Backend Services" {
+  [API Gateway] as Gateway
+  [Authentication Service] as Auth
+  [Content Service] as Content
+  [User Service] as User
+}
+
+package "Database Layer" {
+  database "User DB" as UserDB
+  database "Content DB" as ContentDB
+}
+
+package "External Services" {
+  [Email Service] as Email
+  [Analytics] as Analytics
+}
+
+' Connections
+UI --> Gateway
+Mobile --> Gateway
+Gateway --> Auth
+Gateway --> Content
+Gateway --> User
+Auth --> UserDB
+User --> UserDB
+Content --> ContentDB
+Auth --> Email
+Gateway --> Analytics
+
+skinparam component {
+  BackgroundColor<<Frontend>> LightBlue
+  BackgroundColor<<Backend>> LightGreen
+  BackgroundColor<<Database>> LightYellow
+}
+@enduml

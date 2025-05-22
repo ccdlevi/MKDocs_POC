@@ -1,0 +1,89 @@
+@startuml
+title Document Processing Workflow
+
+!define RECTANGLE class
+!define ACTIVITY class
+
+skinparam backgroundColor #FFFFFF
+skinparam handwritten false
+skinparam monochrome false
+skinparam shadowing false
+skinparam defaultFontName "Arial"
+skinparam defaultFontSize 12
+skinparam roundcorner 8
+skinparam stereotypeCBackgroundColor #A9DCDF
+skinparam stereotypeABackgroundColor #C8F2F3
+
+skinparam class {
+    BackgroundColor<<Document>> #FFF2B6
+    BorderColor<<Document>> #FFD700
+    BackgroundColor<<Process>> #CEDFEF
+    BorderColor<<Process>> #336699
+    BackgroundColor<<Storage>> #E0E0E0
+    BorderColor<<Storage>> #888888
+    BackgroundColor<<User>> #E8F8F9
+    BorderColor<<User>> #008B8B
+}
+
+RECTANGLE "User" as User <<User>> {
+    + Upload Document
+    + Review Document
+    + Approve Document
+}
+
+RECTANGLE "Document" as Doc <<Document>> {
+    + id: String
+    + title: String
+    + content: String
+    + status: String
+    + created_date: Date
+    + last_modified: Date
+}
+
+RECTANGLE "Document Storage" as Storage <<Storage>> {
+    + Store Document
+    + Retrieve Document
+    + Archive Document
+}
+
+RECTANGLE "Processing Engine" as Engine <<Process>> {
+    + Extract Metadata
+    + Convert Format
+    + Apply OCR
+    + Index Content
+}
+
+RECTANGLE "Workflow Manager" as Workflow <<Process>> {
+    + Assign Tasks
+    + Track Status
+    + Send Notifications
+}
+
+RECTANGLE "Search Service" as Search <<Process>> {
+    + Index Documents
+    + Execute Search Queries
+    + Sort and Filter Results
+}
+
+User -right-> Workflow : Uploads
+Workflow -down-> Engine : Processes
+Engine -right-> Storage : Stores
+Storage -up-> Search : Indexed by
+User -up-> Search : Searches
+Workflow -left-> User : Notifies
+
+note bottom of Engine
+  Document processing includes:
+  - Format conversion
+  - OCR for scanned documents
+  - Metadata extraction
+  - Content validation
+end note
+
+note right of Search
+  Full-text search with:
+  - Relevancy ranking
+  - Faceted filtering
+  - Content highlighting
+end note
+@enduml

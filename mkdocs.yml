@@ -1,0 +1,141 @@
+site_name: Documentation Site
+site_description: Documentation site with MkDocs Material theme
+site_author: Your Name
+
+# Repository
+repo_name: github.com/yourusername/mkdocs-site
+repo_url: https://github.com/yourusername/mkdocs-site
+
+# Copyright
+copyright: Copyright &copy; 2025
+
+# Theme Configuration
+theme:
+  name: material
+  palette:
+    # Palette toggle for light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+
+    # Palette toggle for dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  icon:
+    logo: material/book-open-page-variant
+  features:
+    - navigation.tracking
+    - navigation.tabs
+    - navigation.sections
+    - navigation.indexes
+    - navigation.top
+    - navigation.footer
+    - search.suggest
+    - search.highlight
+    - content.code.copy
+    - content.code.annotate
+    - content.tabs.link
+
+# Extensions
+markdown_extensions:
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - meta
+  - md_in_html
+  - toc:
+      permalink: true
+  - pymdownx.arithmatex
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.caret
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji 
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.keys
+  - pymdownx.magiclink
+  - pymdownx.mark
+  - pymdownx.snippets
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tilde
+
+# Plugins
+plugins:
+  - search:
+      lang: en
+      separator: '[\s\-\.]+'
+  - mermaid2:
+      version: 10.8.0
+  - plantuml:
+      puml_url: http://127.0.0.1:8080
+      cache:
+        backend: disabled
+  - drawio-exporter:
+      cache_dir: .drawio-exporter
+      format: svg
+  - minify:
+      minify_html: true
+      minify_js: true
+      minify_css: true
+      htmlmin_opts:
+        remove_comments: true
+  - confluence-publisher:
+      space_key: "MKDocs"     # Required: Confluence space key
+      parent_page_id: 327683          # Required: ID of the parent page in Confluence
+
+# Extra CSS
+extra_css:
+  - assets/stylesheets/custom.css
+
+# Extra JavaScript
+extra_javascript:
+  - assets/js/mathjax.js
+  - https://polyfill.io/v3/polyfill.min.js?features=es6
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+
+# Configuration for Confluence Publisher
+# Uncomment and configure when ready to publish to Confluence
+extra:
+ confluence:
+   url: https://dlevi93.atlassian.net
+   space_key: MKDocs
+   parent_page_id: 327683
+   username: dlevi93@outlook.com
+   password: ATATT3xFfGF03MLW8JRWKyUkrE5GgIC02ZNEPNXtrYPqYCtuyL9Tk-b-KWHpk2BJtTCGu0YRgSxfsBwPLluKz2CL5FVaWH8dIEKLZElCPHeKF6d68C0NaxLU2ekqVhCtuuIbt56zQLpkjrQC0GjbFFpqSMJOz_UVnTAmEaa3YMQAj9nI-mbLdtQ=CB666DF7  # Use API token, not your actual password
+
+# Structure of the navigation
+nav:
+  - Home: index.md
+  - User Guide:
+    - Getting Started: user-guide/getting-started.md
+    - Features: user-guide/features.md
+    - Publishing to Confluence: user-guide/publishing-to-confluence.md
+    - Versioning Documentation: user-guide/versioning.md
+    - Advanced Markdown: advanced-markdown.md
+  - Diagrams:
+    - Mermaid: diagrams/mermaid.md
+    - PlantUML: diagrams/plantuml.md
+    - Draw.io: diagrams/drawio.md
+  - About: about.md

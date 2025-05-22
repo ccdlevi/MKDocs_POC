@@ -1,0 +1,49 @@
+/* Custom CSS styles */
+.md-typeset .mermaid {
+  text-align: center;
+}
+
+.md-typeset .plantuml {
+  text-align: center;
+}
+
+.md-typeset .drawio {
+  text-align: center;
+  max-width: 100%;
+}
+
+/* Custom admonition for confluence tips */
+.md-typeset .admonition.confluence,
+.md-typeset details.confluence {
+  border-color: #4051b5;
+}
+.md-typeset .confluence > .admonition-title,
+.md-typeset .confluence > summary {
+  background-color: #4051b520;
+}
+.md-typeset .confluence > .admonition-title::before,
+.md-typeset .confluence > summary::before {
+  background-color: #4051b5;
+  -webkit-mask-image: var(--md-admonition-icon--tip);
+          mask-image: var(--md-admonition-icon--tip);
+}
+
+/* Add some spacing for diagrams */
+.md-typeset .admonition {
+  margin: 1.5625em 0;
+}
+
+/* Custom styling for code blocks */
+.md-typeset pre > code {
+  padding: 0.6rem;
+}
+
+/* Improved table styling */
+.md-typeset__table {
+  width: 100%;
+}
+
+.md-typeset table:not([class]) {
+  display: table;
+  width: 100%;
+}
