@@ -8,5 +8,5 @@ mkdocs-git-revision-date-localized-plugin==1.2.2
 python-dotenv==1.1.0
 pillow==10.2.0
 cairosvg==2.7.1
-mkdocs-plantuml-plugin==1.2.0
-mkdocs-puml==1.6.0
+mkdocs-puml==2.3.0
+mkdocs-confluence-publisher==0.1.2
