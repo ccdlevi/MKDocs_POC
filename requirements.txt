@@ -10,3 +10,4 @@ pillow==10.2.0
 cairosvg==2.7.1
 mkdocs-puml==2.3.0
 mkdocs-confluence-publisher==0.1.2
+mistune==3.1.3
