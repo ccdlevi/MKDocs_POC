@@ -1,14 +1,9 @@
-# Search Configuration
+# Search boost configuration for enhanced search
+# Format: filename: boost_value
 
-This file provides configuration for the MkDocs search plugin. It is automatically read by the search plugin.
-
-## Boost Pages
-
-The following pages will receive a boost in search results:
-
-- index.md: 10
-- user-guide/getting-started.md: 5
-- user-guide/features.md: 3
-- user-guide/publishing-to-confluence.md: 3
-- diagrams/mermaid.md: 2
-- diagrams/drawio.md: 2
+index.md: 10
+user-guide/getting-started.md: 5
+user-guide/features.md: 3
+user-guide/publishing-to-confluence.md: 3
+diagrams/mermaid.md: 2
+diagrams/drawio.md: 2

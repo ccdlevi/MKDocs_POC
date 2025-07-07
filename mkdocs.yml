@@ -88,8 +88,8 @@ plugins:
       separator: '[\s\-\.]+'
   - mermaid2:
       version: 10.8.0
-  - plantuml:
-      puml_url: https://www.plantuml.com/plantuml/
+  # - plantuml:
+  #     puml_url: https://www.plantuml.com/plantuml/
       # local Docker setup
       # puml_url: http://127.0.0.1:8080
       # cache:
@@ -103,9 +103,9 @@ plugins:
       minify_css: true
       htmlmin_opts:
         remove_comments: true
-  - confluence-publisher:
-      space_key: "MKDocs"     # Required: Confluence space key
-      parent_page_id: 327683          # Required: ID of the parent page in Confluence
+  # - confluence-publisher:
+  #     space_key: "MKDocs"     # Required: Confluence space key
+  #     parent_page_id: 327683          # Required: ID of the parent page in Confluence
 
 # Extra CSS
 extra_css:

@@ -1,6 +1,7 @@
 from mkdocs.plugins import BasePlugin
 import os
 import json
+import yaml
 
 class EnhancedSearchPlugin(BasePlugin):
     def on_post_build(self, config):
@@ -19,16 +20,21 @@ class EnhancedSearchPlugin(BasePlugin):
             
             boosts = {}
             if os.path.exists(boost_file):
-                with open(boost_file, 'r', encoding='utf-8') as f:
-                    for line in f:
-                        if ':' in line and not line.startswith('#'):
-                            path, boost = line.split(':', 1)
-                            path = path.strip()
-                            try:
-                                boost = float(boost.strip())
-                                boosts[path] = boost
-                            except ValueError:
-                                pass
+                try:
+                    with open(boost_file, 'r', encoding='utf-8') as f:
+                        content = f.read()
+                        for line in content.split('\n'):
+                            line = line.strip()
+                            if ':' in line and not line.startswith('#'):
+                                path, boost = line.split(':', 1)
+                                path = path.strip()
+                                try:
+                                    boost = float(boost.strip())
+                                    boosts[path] = boost
+                                except ValueError:
+                                    continue
+                except Exception as e:
+                    print(f"Warning: Could not parse search boost file: {e}")
             
             # Apply boosts to search index
             for doc in search_index.get('docs', []):
@@ -40,6 +46,6 @@ class EnhancedSearchPlugin(BasePlugin):
             
             # Save enhanced search index
             with open(search_index_path, 'w', encoding='utf-8') as f:
-                json.dump(search_index, f)
+                json.dump(search_index, f, indent=2)
                 
         return config

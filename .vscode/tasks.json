@@ -4,7 +4,7 @@
         {
             "label": "Serve MkDocs Site",
             "type": "shell",
-            "command": "${command:python.interpreterPath}",
+            "command": "python",
             "args": [
                 "-m",
                 "mkdocs",
@@ -24,7 +24,7 @@
         {
             "label": "Build MkDocs Site",
             "type": "shell",
-            "command": "${command:python.interpreterPath}",
+            "command": "python",
             "args": [
                 "-m",
                 "mkdocs",
@@ -43,11 +43,40 @@
         {
             "label": "Publish to Confluence",
             "type": "shell",
-            "command": "${command:python.interpreterPath}",
+            "command": "python",
             "args": [
                 "publish.py",
                 "--publish"
             ],
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Serve MkDocs (Direct)",
+            "type": "shell",
+            "command": "mkdocs",
+            "args": [
+                "serve"
+            ],
+            "group": "test",
+            "presentation": {
+                "reveal": "always",
+                "panel": "new",
+                "focus": true
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Build MkDocs (Direct)",
+            "type": "shell",
+            "command": "mkdocs",
+            "args": [
+                "build"
+            ],
+            "group": "build",
             "presentation": {
                 "reveal": "always",
                 "panel": "new"
