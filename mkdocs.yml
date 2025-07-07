@@ -88,10 +88,10 @@ plugins:
       separator: '[\s\-\.]+'
   - mermaid2:
       version: 10.8.0
-  # - plantuml:
+  - plantuml:
   #     puml_url: https://www.plantuml.com/plantuml/
-      # local Docker setup
-      # puml_url: http://127.0.0.1:8080
+      # local Docker setup (docker run -d -p 8080:8080 plantuml/plantuml-server:jetty)
+      puml_url: http://127.0.0.1:8080
       # cache:
       #   backend: disabled
   - drawio-exporter:
