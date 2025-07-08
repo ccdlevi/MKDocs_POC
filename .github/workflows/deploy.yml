@@ -27,7 +27,7 @@ jobs:
       - name: Publish to Confluence
         uses: Workable/confluence-docs-as-code@v1.5.0
         with:
-          confluence_tenant: 'levente.deak'
+          confluence_tenant: 'https://confluencebt.bt.wan/'
           confluence_space: 'BTS'
           confluence_user: ${{ secrets.CONFLUENCE_USER }}
           confluence_token: ${{ secrets.CONFLUENCE_TOKEN }}
