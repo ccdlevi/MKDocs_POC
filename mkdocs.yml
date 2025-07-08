@@ -97,15 +97,22 @@ plugins:
   - drawio-exporter:
       cache_dir: .drawio-exporter
       format: svg
+      # Note: This plugin may cause issues with Confluence publishing
+      # if diagrams generate malformed HTML. Disable if needed.
   - minify:
       minify_html: true
       minify_js: true
       minify_css: true
       htmlmin_opts:
         remove_comments: true
-  # - confluence-publisher:
-  #     space_key: "MKDocs"     # Required: Confluence space key
-  #     parent_page_id: 327683          # Required: ID of the parent page in Confluence
+  # Confluence publishing plugins - now properly installed
+  - confluence_publisher:
+      confluence_prefix: "MkDocs - "  # Prefix for page titles in Confluence
+      space_key: "BTP"            # Confluence space key 
+      parent_page_id: 241040292         # ID of the parent page in Confluence
+      dry_run: false                  # Set to true for testing without publishing
+      verify_ssl: false              # Set to false for corporate environments with SSL issues
+      upload_attachments: false      # Set to false to avoid permission issues
 
 # Extra CSS
 extra_css:

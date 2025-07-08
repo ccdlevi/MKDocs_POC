@@ -1,6 +1,14 @@
-# Draw.io Diagrams
+# Draw.io DiagTo include a Draw.io diagram in your Markdown file, use the following syntax:
 
-[Draw.io](https://www.draw.io/) (also known as diagrams.net) is a powerful diagramming tool that allows you to create complex diagrams with a user-friendly interface. The MkDocs Draw.io Exporter plugin enables you to embed Draw.io diagrams in your documentation.
+```markdown
+![Diagram Title](../assets/diagrams/architecture.drawio)
+```
+
+For example, if you have a file named `architecture.drawio` in a folder named `assets`, you would include it like this:
+
+```markdown
+![System Architecture](../assets/diagrams/architecture.drawio)
+```aw.io](https://www.draw.io/) (also known as diagrams.net) is a powerful diagramming tool that allows you to create complex diagrams with a user-friendly interface. The MkDocs Draw.io Exporter plugin enables you to embed Draw.io diagrams in your documentation.
 
 ## Getting Started with Draw.io
 
@@ -15,13 +23,13 @@ To include Draw.io diagrams in your documentation:
 To include a Draw.io diagram in your Markdown file, use the following syntax:
 
 ```markdown
-![Diagram Title](./path/to/diagram.drawio)
+![Diagram Title](../assets/diagrams/architecture.drawio)
 ```
 
 For example, if you have a file named `architecture.drawio` in a folder named `assets`, you would include it like this:
 
 ```markdown
-![System Architecture](../assets/architecture.drawio)
+![System Architecture](../assets/diagrams/architecture.drawio)
 ```
 
 ## Example Diagram

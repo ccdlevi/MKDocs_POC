@@ -157,7 +157,7 @@ To create your own PlantUML diagram:
 5. Reference the diagram in your Markdown with standard image syntax
 
 ```markdown
-![Diagram Title](../assets/diagrams/your-diagram.puml)
+![System Architecture](../assets/diagrams/system-architecture.puml)
 ```
 
 ## PlantUML Best Practices

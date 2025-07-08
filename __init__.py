@@ -1,0 +1,2 @@
+# Plugin registration for MkDocs
+from mkdocs_confluence_publisher import ConfluencePublisherPlugin
