@@ -1,14 +1,41 @@
-# MkDocs Documentation Site
+# MkDocs Documentation Site with Confluence Publishing
 
-This repository contains a professional documentation site built with MkDocs and the Material theme. It supports various diagram types and includes offline package management for corporate environments.
+A professional documentation site built with MkDocs, Material theme, and integrated Confluence publishing. Designed for corporate environments with offline package support and robust SSL/authentication handling.
 
 ## ✅ Current Status
 
 - **✅ MkDocs Build**: Fully functional
-- **✅ Local Development**: Ready for use
+- **✅ Local Development**: Ready for use  
 - **✅ Static Site Generation**: Working perfectly
 - **✅ All Plugins**: Mermaid, PlantUML, Draw.io, Search, Minify
-- **❌ Confluence Publishing**: Disabled due to SSL certificate issues
+- **✅ Confluence Publishing**: Production-ready with custom plugin
+- **✅ Corporate Environment**: SSL bypass, Bearer token auth support
+
+## 🚀 Quick Start
+
+```bash
+# 1. Clone the repository
+git clone <repository-url>
+cd MKDocs_POC
+
+# 2. Install all dependencies (includes local packages)
+pip install -r requirements.txt
+
+# 3. Install the custom Confluence publisher plugin
+pip install -e .
+
+# 4. Configure Confluence (optional)
+cp .env.example .env
+# Edit .env with your Confluence credentials
+
+# 5. Start local development server
+mkdocs serve
+
+# 6. Build and publish to Confluence
+mkdocs build
+```
+
+That's it! The documentation site is ready to use.
 
 ## Features
 
@@ -17,7 +44,9 @@ This repository contains a professional documentation site built with MkDocs and
   - Mermaid for flowcharts and sequence diagrams
   - PlantUML for UML diagrams  
   - Draw.io for complex diagrams
+- **Confluence Publishing**: Automated publishing with proper formatting
 - **Offline Installation**: All dependencies available as local wheel files
+- **Corporate Ready**: SSL bypass, Bearer token authentication
 - **Corporate Network Ready**: Designed for environments with SSL inspection
 - **Confluence Publishing**: Available but currently disabled due to SSL issues
 

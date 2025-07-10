@@ -1,23 +1,32 @@
-# Local wheel files - download these manually to packages/ folder
+# MkDocs Documentation System Requirements
+# This project includes local packages for offline/corporate environments
+
+# Core MkDocs with Material theme
 ./packages/mkdocs-1.6.1-py3-none-any.whl
 ./packages/mkdocs_material-9.6.15-py3-none-any.whl
-./packages/mkdocs_mermaid2_plugin-1.2.1-py3-none-any.whl  
-./packages/mkdocs_minify_plugin-0.8.0-py3-none-any.whl
-./packages/python_dotenv-1.1.1-py3-none-any.whl
-# Note: Use mistune<2.0 for confluence publisher compatibility
-# mistune==0.8.4  # Install with: pip install "mistune<2.0"
-./packages/mkdocs_confluence_publisher-0.1.2-py3-none-any.whl
+
+# Diagram support plugins
+./packages/mkdocs_mermaid2_plugin-1.2.1-py3-none-any.whl
 ./packages/mkdocs_drawio_exporter-0.10.2-py3-none-any.whl
 ./packages/mkdocs_puml-2.3.0-py3-none-any.whl
-./packages/mkdocs_export_confluence-0.1.2-py3-none-any.whl
 
-# Dependencies (also download these if needed)
-# ./packages/click-8.2.1-py3-none-any.whl
-# ./packages/jinja2-3.1.6-py3-none-any.whl  
-# ./packages/markdown-3.8.2-py3-none-any.whl
-# ./packages/PyYAML-6.0.2-cp313-cp313-win_amd64.whl
-# ./packages/watchdog-6.0.0-py3-none-win_amd64.whl
+# Additional plugins
+./packages/mkdocs_minify_plugin-0.8.0-py3-none-any.whl
 
-# Image processing (may need manual download)
-# pillow>=10.0.0
-# cairosvg>=2.7.0
+# Environment configuration
+./packages/python_dotenv-1.1.1-py3-none-any.whl
+
+# Core dependencies
+./packages/click-8.2.1-py3-none-any.whl
+./packages/jinja2-3.1.6-py3-none-any.whl
+./packages/markdown-3.8.2-py3-none-any.whl
+./packages/PyYAML-6.0.2-cp313-cp313-win_amd64.whl
+./packages/watchdog-6.0.0-py3-none-win_amd64.whl
+
+# Image processing for diagrams
+./packages/pillow-11.3.0-pp311-pypy311_pp73-win_amd64.whl
+./packages/cairosvg-2.8.2-py3-none-any.whl
+
+# Note: The custom Confluence Publisher plugin is installed separately via:
+# pip install -e .
+# This installs the mkdocs_confluence_publisher.py file as a plugin

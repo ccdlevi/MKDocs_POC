@@ -88,6 +88,7 @@ plugins:
       separator: '[\s\-\.]+'
   - mermaid2:
       version: 10.8.0
+      javascript: js/mermaid.min.js
   - plantuml:
   #     puml_url: https://www.plantuml.com/plantuml/
       # local Docker setup (docker run -d -p 8080:8080 plantuml/plantuml-server:jetty)
@@ -112,7 +113,7 @@ plugins:
       parent_page_id: 241040292         # ID of the parent page in Confluence
       dry_run: false                  # Set to true for testing without publishing
       verify_ssl: false              # Set to false for corporate environments with SSL issues
-      upload_attachments: false      # Set to false to avoid permission issues
+      upload_attachments: true      # Set to false to avoid permission issues
 
 # Extra CSS
 extra_css:
@@ -131,7 +132,6 @@ nav:
     - Getting Started: user-guide/getting-started.md
     - Features: user-guide/features.md
     - Publishing to Confluence: user-guide/publishing-to-confluence.md
-    - Versioning Documentation: user-guide/versioning.md
     - Advanced Markdown: advanced-markdown.md
   - Diagrams:
     - Mermaid: diagrams/mermaid.md

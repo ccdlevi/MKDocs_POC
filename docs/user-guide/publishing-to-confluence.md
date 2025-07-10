@@ -1,276 +1,348 @@
 # Publishing to Confluence
 
-This document explains how to publish your MkDocs documentation to Confluence using our custom REST API publisher. The project includes a robust Python script that handles authentication, content conversion, and publishing via the Confluence REST API.
+This documentation system includes a **production-ready Confluence publisher plugin** that seamlessly integrates with the MkDocs build process. The plugin handles authentication, SSL issues, content conversion, and maintains proper page hierarchy.
 
-## Current Status
+## ✅ Current Status
 
-**✅ MkDocs Build**: Fully functional  
-**✅ Documentation Development**: Ready for use  
-**✅ Confluence Publishing**: Custom REST API publisher available
+**✅ Confluence Publisher Plugin**: Production-ready and fully functional  
+**✅ Corporate Environment Support**: SSL bypass and Bearer token authentication  
+**✅ Automatic Publishing**: Integrated with `mkdocs build` command  
+**✅ Robust Error Handling**: Graceful failure recovery and detailed logging  
+**✅ Content Conversion**: Professional Markdown → Confluence format conversion
 
-## Quick Start
+## 🚀 Quick Start
 
-### 1. Configure Environment Variables
+### 1. Environment Setup
 
-The `.env` file in your project root contains your Confluence configuration:
+Create a `.env` file with your Confluence credentials:
 
+```bash
+# Copy the example and customize
+cp .env.example .env
+```
+
+Edit `.env` with your details:
 ```env
-# Confluence instance URL
-CONFLUENCE_URL=https://your-instance.atlassian.net
+# Your Confluence instance URL (without trailing slash)
+CONFLUENCE_URL=https://your-confluence-instance.com
 
-# Space key where content should be published
-CONFLUENCE_SPACE_KEY=DOCS
+# Your Confluence username (email address)
+CONFLUENCE_USERNAME=your-email@company.com
 
-# Parent page ID under which content will be published
-CONFLUENCE_PARENT_PAGE_ID=123456
-
-# Confluence username (email address)
-CONFLUENCE_USERNAME=your.email@example.com
-
-# Confluence API token (never use your actual password)
-CONFLUENCE_API_TOKEN=your_api_token_here
-
-# Optional: Delete pages in Confluence that don't exist in docs
-# CONFLUENCE_DELETE_MISSING=true
-
-# Optional: Add labels to published pages
-# CONFLUENCE_LABELS=documentation,mkdocs
-
-# Optional: Specify a custom title prefix
-# CONFLUENCE_TITLE_PREFIX=[DOCS] 
+# Your Confluence API token (generate from Profile → Personal Access Tokens)
+CONFLUENCE_API_TOKEN=your-api-token-here
 ```
 
-### 2. Test Your Connection
+!!! tip "API Token Generation"
+    Generate your API token from Confluence: **Profile** → **Personal Access Tokens** → **Create Token**
 
-Before publishing, test your Confluence connection:
+### 2. Plugin Configuration
 
+Configure the plugin in `mkdocs.yml`:
+
+```yaml
+plugins:
+  - confluence_publisher:
+      confluence_prefix: "MkDocs - "     # Prefix for page titles
+      space_key: "DOCS"                 # Your Confluence space key
+      parent_page_id: 123456789          # Parent page ID for organization
+      dry_run: false                    # Set to true for testing
+      verify_ssl: false                 # Set to false for corporate environments
+      upload_attachments: false         # Disable if permission issues
+```
+
+### 3. Publish Documentation
+
+**Simple One-Command Publishing:**
 ```bash
-python test_confluence.py
+mkdocs build  # Automatically builds AND publishes to Confluence
 ```
 
-This will verify your credentials and configuration.
-
-### 3. Publish Your Documentation
-
-#### Quick Publish (Build + Publish)
+**Development Workflow:**
 ```bash
-python publish.py --build --publish
+# 1. Develop with live preview
+mkdocs serve
+
+# 2. Test publishing without changes
+# Set dry_run: true in mkdocs.yml, then:
+mkdocs build
+
+# 3. Publish for real
+# Set dry_run: false in mkdocs.yml, then:
+mkdocs build
 ```
 
-#### Step-by-Step Publishing
-```bash
-# Build the site first
-python -m mkdocs build
+## 🔧 Plugin Features
 
-# Publish to Confluence
-python publish.py --publish
-```
+### Seamless Integration
+- **✅ MkDocs Plugin**: Fully integrated with the MkDocs build process
+- **✅ Automatic Publishing**: No separate commands needed
+- **✅ VS Code Tasks**: Pre-configured tasks for common operations
 
-#### Dry Run (Preview Changes)
-```bash
-python publish.py --dry-run
-```
-
-## Publishing Options
-
-### Available Commands
-
-| Command | Description |
-|---------|-------------|
-| `--publish` | Publish the built site to Confluence |
-| `--dry-run` | Show what would be published without actually doing it |
-| `--clean` | Remove orphaned pages from Confluence |
-| `--build` | Build the MkDocs site before publishing |
-| `--site-dir DIR` | Specify the site directory (default: site) |
-
-### Examples
-
-```bash
-# Dry run to see what will be published
-python publish.py --dry-run
-
-# Build and publish in one command
-python publish.py --build --publish
-
-# Publish with custom site directory
-python publish.py --publish --site-dir custom_site
-
-# Clean up orphaned pages
-python publish.py --clean
-```
-
-## Content Conversion Features
-
-### Supported Elements
-
-The custom publisher converts MkDocs/Material content to Confluence format:
-
-| Element | MkDocs/HTML | Confluence |
-|---------|-------------|------------|
-| Headers | `<h1>` - `<h6>` | Native headers |
-| Code blocks | Syntax highlighted | Confluence code macro |
-| Admonitions | Material admonitions | Info/Warning/Error macros |
-| Tables | HTML tables | Confluence tables |
-| Links | Markdown/HTML links | Confluence links |
-| Images | HTML images | Confluence attachments |
-| Mermaid diagrams | Interactive diagrams | Code blocks (for reference) |
+### Corporate Environment Support
+- **✅ SSL Bypass**: Handles corporate certificate issues automatically
+- **✅ Bearer Token Auth**: Modern OAuth-style authentication (preferred)
+- **✅ Basic Auth Fallback**: Traditional username/password if needed
+- **✅ Proxy Support**: Works through corporate proxies
 
 ### Content Processing
+- **✅ Page Hierarchy**: Maintains proper parent-child relationships
+- **✅ Format Conversion**: Markdown → Confluence storage format
+- **✅ Code Blocks**: Syntax highlighting preserved
+- **✅ Tables**: Professional table formatting
+- **✅ Admonitions**: Note/Warning/Tip boxes converted properly
+- **✅ Links**: Internal links updated to Confluence page references
 
-The publisher automatically:
-- Extracts main content from HTML pages
-- Removes navigation, headers, and footers
-- Converts Material Design components
-- Handles special characters and encoding
-- Preserves document structure
+### Error Handling
+- **✅ Robust Recovery**: Continues processing even if individual pages fail
+- **✅ Detailed Logging**: Clear error messages and debugging information
+- **✅ Graceful Degradation**: Warns about issues without breaking the build
+- **✅ Content Sanitization**: Prevents API errors from malformed content
 
-## Configuration Reference
+## 📋 Configuration Reference
+
+### Plugin Options
+
+| Option | Type | Default | Description |
+|--------|------|---------|-------------|
+| `confluence_prefix` | string | `""` | Prefix added to all page titles |
+| `space_key` | string | **required** | Confluence space key (e.g., "DOCS") |
+| `parent_page_id` | integer | **required** | Parent page ID for organization |
+| `dry_run` | boolean | `false` | Test mode - no actual changes made |
+| `verify_ssl` | boolean | `false` | SSL certificate verification |
+| `upload_attachments` | boolean | `true` | Enable/disable file attachments |
 
 ### Environment Variables
 
-| Variable | Required | Description | Example |
-|----------|----------|-------------|---------|
-| `CONFLUENCE_URL` | ✅ | Confluence instance URL | `https://company.atlassian.net` |
-| `CONFLUENCE_SPACE_KEY` | ✅ | Target space key | `DOCS` |
-| `CONFLUENCE_PARENT_PAGE_ID` | ⚠️ | Parent page for organization | `123456` |
-| `CONFLUENCE_USERNAME` | ✅ | Your Confluence username | `user@company.com` |
-| `CONFLUENCE_API_TOKEN` | ✅ | API token (not password) | `abc123...` |
-| `CONFLUENCE_DELETE_MISSING` | ❌ | Clean up orphaned pages | `true` |
-| `CONFLUENCE_LABELS` | ❌ | Comma-separated labels | `docs,mkdocs` |
-| `CONFLUENCE_TITLE_PREFIX` | ❌ | Prefix for page titles | `[DOCS] ` |
+| Variable | Required | Description |
+|----------|----------|-------------|
+| `CONFLUENCE_URL` | ✅ | Your Confluence instance URL |
+| `CONFLUENCE_USERNAME` | ⚠️ | Username (usually email) |
+| `CONFLUENCE_API_TOKEN` | ✅ | API token for authentication |
 
-### VS Code Tasks
+!!! note "Authentication Priority"
+    The plugin prioritizes Bearer token authentication over Basic auth, as it works better in corporate environments.
 
-The project includes pre-configured VS Code tasks:
+## 🎯 Content Conversion
 
-- **Serve MkDocs Site**: Start development server
-- **Build MkDocs Site**: Build the documentation
-- **Publish to Confluence**: Run the publisher script
+### Supported Elements
 
-Access these via `Ctrl+Shift+P` → "Tasks: Run Task"
-## Finding Your Confluence Page ID
+The plugin converts MkDocs content to professional Confluence format:
 
-To find the ID of a Confluence page to use as the parent page:
+| MkDocs Element | Confluence Output | Status |
+|----------------|------------------|--------|
+| **Headers** | Native Confluence headers | ✅ Full support |
+| **Code Blocks** | Confluence code macros with syntax highlighting | ✅ Full support |
+| **Tables** | Confluence table format | ✅ Full support |
+| **Admonitions** | Info/Warning/Error macros | ✅ Full support |
+| **Links** | Confluence page links | ✅ Full support |
+| **Images** | Confluence attachments | ⚠️ Optional |
+| **Mermaid Diagrams** | PNG images with source code | ✅ Enhanced |
+| **PlantUML Diagrams** | PNG images from SVG | ✅ Enhanced |
+| **Math Expressions** | LaTeX format preserved | ✅ Preserved |
 
-1. Navigate to the page in Confluence
-2. Look at the URL, which should contain something like: `pageId=123456`
-3. The number after `pageId=` is your page ID
-4. Alternatively, view the page source and search for `content-id`
+### Conversion Examples
 
-## Troubleshooting
+**Admonitions:**
+```markdown
+!!! note "Important"
+    This becomes a Confluence info macro.
+```
+→ Confluence Info macro with proper styling
 
-### Connection Issues
+**Code Blocks:**
+````markdown
+```python
+def hello_world():
+    print("Hello!")
+```
+````
+→ Confluence code macro with Python syntax highlighting
 
-**Problem**: Cannot connect to Confluence
+**Tables:**
+```markdown
+| Feature | Status |
+|---------|--------|
+| Publishing | ✅ Working |
+```
+→ Professional Confluence table with proper formatting
+
+**Enhanced Diagram Support:**
+Our publisher now provides enhanced diagram handling for Confluence:
+
+- **Mermaid Diagrams**: Converted to PNG images with source code for reference
+  - Supports two rendering options:
+    - `markdown-mermaid-cli`: Python package (recommended)
+    - `mermaid-cli`: Node.js package (alternative)
+  - Falls back to code display when neither tool is available
+- **PlantUML Diagrams**: Converted to PNG images automatically
+  - Uses CairoSVG for high-quality conversion
+  - Falls back to placeholders when SVG conversion fails
+- **Draw.io Diagrams**: May render with limitations
+
+PNG images are automatically attached to the Confluence page, providing a much better viewing experience than before. For the best interactive experience, users can still refer to the web version.
+
+## 🔍 Finding Your Configuration Values
+
+### Space Key
+1. Go to your Confluence space
+2. Look in the URL: `https://yoursite.com/spaces/DOCS/` → Space key is `DOCS`
+3. Or check the space settings page
+
+### Parent Page ID
+1. Navigate to the page you want as the parent
+2. Look at the URL: `...pageId=123456789` → Page ID is `123456789`
+3. Or view page source and search for `content-id`
+
+### API Token
+1. Go to Confluence → **Profile** → **Personal Access Tokens**
+2. Click **Create Token**
+3. Give it a descriptive name (e.g., "MkDocs Publisher")
+4. Copy the generated token (save it securely!)
+
+## 🔧 VS Code Integration
+
+The project includes pre-configured VS Code tasks for easy development:
+
+**Available Tasks:**
+- **Serve MkDocs Site**: Start development server with live reload
+- **Build MkDocs Site**: Build static site and publish to Confluence
+- **Publish to Confluence**: Legacy task (now integrated with build)
+
+**Access Tasks:**
+`Ctrl+Shift+P` → "Tasks: Run Task" → Select desired task
+
+## 🚨 Troubleshooting
+
+### Common Issues
+
+**🔴 Plugin Not Found Error**
+```
+ERROR: The "confluence_publisher" plugin is not installed
+```
+**Solution:**
 ```bash
-❌ HTTP 401: Unauthorized
+pip install -e .  # Reinstall the local plugin
 ```
 
-**Solutions**:
-1. Verify your API token is correct and active
-2. Check that your username is your email address
+**🔴 Authentication Failed (401)**
+```
+ERROR: 401 Client Error: Unauthorized
+```
+**Solutions:**
+1. Check your API token is correct and active
+2. Verify username is your email address
 3. Ensure you have access to the specified space
-4. Test connection: `python test_confluence.py`
+4. Test with Bearer token authentication (preferred)
 
-**Problem**: SSL Certificate errors
-```bash
-❌ SSL: CERTIFICATE_VERIFY_FAILED
+**🔴 SSL Certificate Issues**
 ```
-
-**Solutions**:
-- The publisher handles corporate SSL certificates automatically
-- If issues persist, check your corporate proxy settings
-- Contact your IT department about certificate requirements
-
-### Publishing Issues
-
-**Problem**: Pages not appearing in Confluence
-```bash
-❌ Failed to create page: Page Title
+ERROR: SSL: CERTIFICATE_VERIFY_FAILED
 ```
+**Solutions:**
+1. Set `verify_ssl: false` in plugin configuration (recommended for corporate environments)
+2. The plugin automatically handles corporate SSL issues
+3. Contact IT if problems persist
 
-**Solutions**:
-1. Check the console output for specific errors
-2. Verify you have write permissions in the space
-3. Ensure the parent page ID exists and is accessible
-4. Try publishing a single page first with `--dry-run`
+**🔴 Page Creation Failed (400/403)**
+```
+ERROR: Failed to update page content: 400/403 Client Error
+```
+**Solutions:**
+1. Verify you have write permissions in the space
+2. Check parent page ID exists and is accessible
+3. Set `upload_attachments: false` if attachment permission issues
+4. Use `dry_run: true` to test without making changes
 
-**Problem**: Content formatting issues
-
-**Solutions**:
-1. Check that complex Markdown renders correctly in MkDocs first
-2. Material Design components may not translate perfectly
-3. Use simpler formatting for better Confluence compatibility
-4. Test with basic content first
+**🔴 Content Formatting Issues**
+```
+ERROR: Failed to update page content for diagrams\drawio.md
+```
+**Solutions:**
+1. Check if Draw.io exporter is causing issues (known issue)
+2. Temporarily disable problematic plugins
+3. Use simpler content for testing
+4. Check logs for specific formatting problems
 
 ### Performance Issues
 
-**Problem**: Publishing is slow
+**Slow Publishing:**
+- Use `dry_run: true` to test without actual publishing
+- Disable `upload_attachments` if not needed
+- Check network connectivity to Confluence instance
 
-**Solutions**:
-1. Use `--dry-run` to test without actual publishing
-2. Consider publishing smaller sections at a time
-3. Clean up orphaned pages periodically with `--clean`
+**Build Failures:**
+- Check MkDocs builds successfully first: `mkdocs build`
+- Verify all referenced files exist
+- Review error logs for specific issues
 
-## Best Practices
+## 📋 Best Practices
 
-### Content Organization
-1. **Use Clear Titles**: Confluence uses page titles for navigation
-2. **Organize Hierarchically**: Use the parent page ID for proper structure
-3. **Keep it Simple**: Complex formatting may not translate well
-4. **Test Regularly**: Use dry runs to verify content before publishing
+### Content Guidelines
+1. **📝 Clear Titles**: Use descriptive, unique page titles
+2. **📁 Hierarchy**: Organize content under appropriate parent pages
+3. **🔗 Simple Links**: Use relative links for better conversion
+4. **📊 Standard Formatting**: Stick to common Markdown for best results
 
-### Workflow Recommendations
-1. **Development**: Write and test in MkDocs first
-2. **Staging**: Use `--dry-run` to preview changes
-3. **Production**: Publish incrementally
-4. **Maintenance**: Clean orphaned pages regularly
+### Development Workflow
+1. **🔧 Develop Locally**: Use `mkdocs serve` for live preview
+2. **🧪 Test First**: Use `dry_run: true` to preview changes
+3. **📋 Incremental Publishing**: Test with small changes first
+4. **🔄 Regular Builds**: Publish frequently to catch issues early
 
-### Security
-1. **Never commit API tokens** to version control
-2. **Use .env files** for sensitive configuration
-3. **Rotate tokens regularly** per company policy
-4. **Limit permissions** to only necessary spaces
+### Security & Maintenance
+1. **🔐 Secure Credentials**: Never commit API tokens to version control
+2. **🔄 Token Rotation**: Update API tokens per company policy
+3. **🛡️ Minimal Permissions**: Only grant necessary space access
+4. **📊 Monitor Logs**: Review build logs for issues
 
-## Advanced Usage
+## 🚀 Advanced Usage
 
-### Custom Content Processing
+### Custom Configuration Example
 
-To modify how content is converted, edit the `html_to_confluence_storage()` method in `publish.py`:
-
-```python
-def html_to_confluence_storage(self, html_content: str) -> str:
-    # Add your custom conversion logic here
-    content = html_content
-    # ... existing conversions ...
-    return content
+```yaml
+# mkdocs.yml - Production configuration
+plugins:
+  - confluence_publisher:
+      confluence_prefix: "[TEAM-DOCS] "
+      space_key: "TEAMDOCS"
+      parent_page_id: 987654321
+      dry_run: false
+      verify_ssl: false
+      upload_attachments: false
 ```
 
-### Batch Operations
+### CI/CD Integration
 
-```bash
-# Process multiple builds
-for site in site1 site2 site3; do
-    python publish.py --site-dir "$site" --publish
-done
-
-# Clean and republish
-python publish.py --clean --dry-run  # Preview cleanup
-python publish.py --clean            # Actually clean
-python publish.py --build --publish  # Rebuild and publish
-```
-
-### Integration with CI/CD
-
-Add to your pipeline:
+Add to your pipeline (GitHub Actions example):
 
 ```yaml
 - name: Build and Publish Documentation
   run: |
-    python -m mkdocs build
-    python publish.py --publish
+    pip install -r requirements.txt
+    pip install -e .
+    mkdocs build
   env:
     CONFLUENCE_URL: ${{ secrets.CONFLUENCE_URL }}
     CONFLUENCE_USERNAME: ${{ secrets.CONFLUENCE_USERNAME }}
     CONFLUENCE_API_TOKEN: ${{ secrets.CONFLUENCE_API_TOKEN }}
 ```
+
+### Multiple Environment Setup
+
+```bash
+# Development
+cp .env.example .env.dev
+# Edit .env.dev with dev Confluence settings
+
+# Production  
+cp .env.example .env.prod
+# Edit .env.prod with production settings
+
+# Use specific environment
+cp .env.dev .env  # For development
+mkdocs build
+```
+
+!!! success "Production Ready"
+    The Confluence publisher plugin is production-ready and handles all common corporate environment challenges. It provides seamless integration between your MkDocs documentation and Confluence, maintaining professional formatting and proper page hierarchy.
